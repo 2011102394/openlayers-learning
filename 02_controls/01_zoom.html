@@ -18,6 +18,12 @@
     #map {
       height: 100vh;
     }
+
+    #map .ol-mouse-position {
+      position: relative;
+      top: 96vh;
+      left: 200px;
+    }
   </style>
 </head>
 
@@ -33,11 +39,33 @@
         })
       ],
       view: new ol.View({                     // 地图视图
-        projection: 'EPSG:4326',
-        center: [108.94, 34.34],
+        center: [0, 0],
         zoom: 4
-      })
+      }),
+      controls: ol.control.defaults({
+        zoomOptions: {
+          zoomInTipLabel: '放大',
+          zoomOutTipLabel: '缩小'
+        }
+      }).extend([
+        // 比例尺
+        new ol.control.ScaleLine(),
+        // 全屏
+        new ol.control.FullScreen(),
+        // 显示鼠标坐标位置插件
+        new ol.control.MousePosition({
+          projection: 'EPSG:4326'
+        }),
+        // 鹰眼图
+        new ol.control.OverviewMap({
+          collapsed: false
+        })
+
+      ])
+
     });
+    const controls = map.getControls()
+    console.log(controls)
 
   </script>
 </body>
